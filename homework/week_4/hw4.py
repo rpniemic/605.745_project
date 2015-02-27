@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import numpy as np
-
 def main():
     # States
     knife, maid, butler = 0, 1, 2
