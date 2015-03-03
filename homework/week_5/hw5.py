@@ -7,29 +7,14 @@ import sys
 
 def main (filename):
     graph,start,finish,conditions = parse(filename)
-
-    answer = bayes_balls(graph, [start], conditions)
     
-    return answer
-
-def bayes_balls (G, F, K):
-    visited = [False for i in G]
-    mk_top = [False for i in G]
-    mk_bottom = [False for i in G]
+    paths = find_all_paths(make_undirected(graph), start, finish)
     
-    schedule = []
+    apply_conditions(graph, conditions, paths)
     
-    while len(schedule) > 0:
-        j = schedule.pop()
-        visited[j] = True
-        
-        if j not in K:
+    if len(paths) > 0 : return False
+    else: return True
     
-    
-    
-#new_graph = apply_conditions(graph, conditions)
-
-#return not path_exists(new_graph, start, finish)
 
 def parse (filename):
     with open(filename, 'rb') as f:
@@ -45,37 +30,32 @@ def parse (filename):
     conditions = [int(sc)-1 for sc in str_conditions]
 
     return graph, start, finish, conditions
-        
-def apply_conditions (graph, conditions):
-    ug = make_undirected(graph)
-    return ug
-    
     
 def make_undirected (d_graph):
     u_graph = [[value for value in row] for row in d_graph]
-    
     for i,row in enumerate(d_graph):
         for j, value in enumerate(row):
             if value == 1: u_graph[j][i] = 1
-
     return u_graph
 
-def path_exists (graph, start, finish):
-    # short circuited BFS to check for path existance
-    # https://en.wikipedia.org/wiki/Breadth-first_search#Pseudocode
+def find_all_paths (graph, start, finish):
 
-    queue = [start]
-    explored = [start]
-    while True:
-        if len(queue) == 0: return False
-        v = queue.pop(0)
-        
-        for w, val in enumerate(graph[v]):
+    paths = []
+    q = [[start]]
+
+    while len(q) > 0:
+    	tmp_path = q.pop(0)
+    	last_node = tmp_path[-1]
+    	if last_node == finish:
+            paths.append(tmp_path)
+        for link_node, val in enumerate(graph[last_node]):
             if val == 0: continue
-            if w == finish: return True # short circuit
-            if w not in explored:
-                queue.append(w)
-                explored.append(w)
+            if link_node not in tmp_path:
+                new_path = tmp_path + [link_node]
+                q.append(new_path)
+    return paths
+
+def apply_conditions (graph, conditions, paths):
 
 if __name__ == '__main__':
     if len(sys.argv) == 2:
