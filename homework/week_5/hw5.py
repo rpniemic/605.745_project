@@ -7,10 +7,29 @@ import sys
 
 def main (filename):
     graph,start,finish,conditions = parse(filename)
+
+    answer = bayes_balls(graph, [start], conditions)
+    
+    return answer
+
+def bayes_balls (G, F, K):
+    visited = [False for i in G]
+    mk_top = [False for i in G]
+    mk_bottom = [False for i in G]
+    
+    schedule = []
+    
+    while len(schedule) > 0:
+        j = schedule.pop()
+        visited[j] = True
         
-    new_graph = apply_conditions(graph, conditions)
-        
-    return not path_exists(new_graph, start, finish)
+        if j not in K:
+    
+    
+    
+#new_graph = apply_conditions(graph, conditions)
+
+#return not path_exists(new_graph, start, finish)
 
 def parse (filename):
     with open(filename, 'rb') as f:
@@ -28,23 +47,9 @@ def parse (filename):
     return graph, start, finish, conditions
         
 def apply_conditions (graph, conditions):
-    colliders = find_colliders(graph)
-    is_ok = [c in conditions for c in colliders]
+    ug = make_undirected(graph)
+    return ug
     
-    print 'conditions', conditions
-    print 'colliders', colliders
-    print 'is_ok', is_ok
-
-    #trimmed_graph = remove_collitions(graph, colliders, is_ok)
-    
-    return None
-
-def find_colliders (graph):
-    colliders = []
-    for i in xrange(len(graph)):
-        incoming = sum([row[i] for row in graph])
-        if incoming >= 2: colliders.append(i)
-    return colliders
     
 def make_undirected (d_graph):
     u_graph = [[value for value in row] for row in d_graph]
