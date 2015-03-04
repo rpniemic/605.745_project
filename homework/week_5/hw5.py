@@ -129,9 +129,6 @@ def descendants_of (m,g):
     
     del descendants[0]
     return descendants
-        
-    
-    
 
 def sliding_window(seg, size):
     window = [seg[i:len(seg)-size+1+i] for i in xrange(size)]
