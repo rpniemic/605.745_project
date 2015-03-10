@@ -72,8 +72,24 @@ def number_4 ():
     print '  Expectation: {}'.format(mean(y_space))
     print '  Std Dev: {}'.format(math.sqrt(var(y_space, mean(y_space))))
     
-    
+    x_p_y_space = [ [X(xi)+Y(xi) for xi,_ in zip(*die)],
+                    [pi for _,pi in zip(*die)] ]
 
+    print
+    print 'X + Y'
+    for xi, pi in zip(*x_p_y_space): print '  x_i: {}, p_i {}'.format(xi,pi)
+    print '  Expectation: {}'.format(mean(x_p_y_space))
+    print '  Std Dev: {}'.format(math.sqrt(var(x_p_y_space, mean(x_p_y_space))))
+    
+    x_t_y_space = [ [X(xi)*Y(xi) for xi,_ in zip(*die)],
+                    [pi for _,pi in zip(*die)] ]
+
+    print
+    print 'XY'
+    for xi, pi in zip(*x_t_y_space): print '  x_i: {}, p_i: {}'.format(xi,pi)
+    print '  Expectation: {}'.format(mean(x_t_y_space))
+    print '  Std Dev: {}'.format(math.sqrt(var(x_t_y_space, mean(x_t_y_space))))
+    
 def mean (space):
     return sum([xi*pi for xi, pi in zip(*space)])
     
