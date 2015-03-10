@@ -50,7 +50,7 @@ def number_four ():
 
 def number_five ():
     top = comb(10,4) + comb(10,3)*comb(39,1) + comb(10,2)*comb(39,2)
-    bottom = comb(39,4)
+    bottom = comb(49,4)
     
     print 'Number 4.37'
     print '{} / {} = {}'.format(top, bottom, top/bottom)
