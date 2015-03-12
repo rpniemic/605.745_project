@@ -163,5 +163,5 @@ if __name__ == '__main__':
     number_four()
     number_five()
     number_six()
-    number_seven()
-    number_eight()
+    #number_seven()
+    #number_eight()
